@@ -3,7 +3,7 @@ https://leafletjs.com/reference-1.6.0.html
 https://github.com/digidem/leaflet-side-by-side  
 https://github.com/tbrugz/geodata-br/blob/master/geojson/geojs-53-mun.json  
 
-![image](https://github.com/monteiroluana/leaflet-side-by-side/image.png)
+![image](https://github.com/monteiroluana/leaflet-side-by-side/blob/master/image.png)
 
 #### Side by side
 Creates a new Leaflet Control for comparing two layers

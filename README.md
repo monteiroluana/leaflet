@@ -13,7 +13,7 @@ L.control.sideBySide(layer01, layer02).addTo(map);
 L.geoJSON(districtGeo).addTo(map);
 ```
 
-**Other exemplo** in others-tileLayers.html  
+**Other exemplo** in [others-tileLayers.html](https://github.com/monteiroluana/leaflet-side-by-side/blob/master/others-tileLayers.html)  
 Using Sentinel 2 satellite images 
 
 ![image](https://github.com/monteiroluana/leaflet-side-by-side/blob/master/imgs/others_tileLayers.png)

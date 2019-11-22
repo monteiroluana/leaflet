@@ -1,7 +1,7 @@
 ## Leaflet
 Creating a new Leaflet Control for comparing two layers and display a GeoJSON in map
 
-![image](https://github.com/monteiroluana/leaflet-side-by-side/blob/master/image.png)
+![image](https://github.com/monteiroluana/leaflet-side-by-side/imgs/blob/master/image.png)
 
 #### Side by side
 ```

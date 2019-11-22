@@ -8,9 +8,17 @@
 
     <style>
         html,
-        body {height: 100%; margin: 0; }
+        body {
+            height: 100%;
+            margin: 0;
+        }
 
-        #map { width: 30%; height: 30%; margin-left: 25%; margin-top: 10%;}
+        #map {
+            width: 30%;
+            height: 30%;
+            margin-left: 25%;
+            margin-top: 10%;
+        }
     </style>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
@@ -31,29 +39,32 @@
 
     <script>
         "use strict"
-        
-        // ------ Creating map object -----------
-        var map = L.map('map').setView([-20.378101512509406, -49.5263671875], 14);
+
+        var map;
+        create();
 
 
-        // ------ Creating a tilelayer object on three dates -----------
-        // getting endpoint tiles by date by location
-        var url_base = "https://s3.amazonaws.com/scicrop-cana/extsat-rgb-tiles/sentinel2-l2a/";
-        var tile_20191104 = url_base + "S2A_MSIL2A_20191104T133231_N0213_R081_T22KFC_20191104T154927";
-        var tile_20191005 = url_base + "S2A_MSIL2A_20191005T133231_N0213_R081_T22KFC_20191005T155257";
-        var tile_20190915 = url_base + "S2A_MSIL2A_20190915T133221_N0213_R081_T22KFC_20190915T154740";
+        function create() {
+            // ------ Creating map object -----------
+            map = L.map('map').setView([-20.378101512509406, -49.5263671875], 14);
 
-        // creating tilelayer object
-        var layer_20191104 = L.tileLayer (tile_20191104 + '/{z}/{x}/{y}.png', { tms: true, opacity: 1, minZoom: 0, maxZoom: 22, minNativeZoom: 10, maxNativeZoom: 14 }).addTo(map);
-        var layer_20191005 = L.tileLayer (tile_20191005 + '/{z}/{x}/{y}.png', { tms: true, opacity: 1, minZoom: 0, maxZoom: 22, minNativeZoom: 10, maxNativeZoom: 14 }).addTo(map);
-        var layer_20190915 = L.tileLayer (tile_20190915 + '/{z}/{x}/{y}.png', { tms: true, opacity: 1, minZoom: 0, maxZoom: 22, minNativeZoom: 10, maxNativeZoom: 14 }).addTo(map);
-        // ------- End ----------
-        
+            // ------ Creating a tilelayer object on three dates -----------
+            // getting endpoint tiles by date by location
+            var url_base = "https://s3.amazonaws.com/scicrop-cana/extsat-rgb-tiles/sentinel2-l2a/";
+            var url_tile_20191104 = url_base + "S2A_MSIL2A_20191104T133231_N0213_R081_T22KFC_20191104T154927";
+            var url_tile_20191005 = url_base + "S2A_MSIL2A_20191005T133231_N0213_R081_T22KFC_20191005T155257";
+            var url_tile_20190915 = url_base + "S2A_MSIL2A_20190915T133221_N0213_R081_T22KFC_20190915T154740";
 
-        // ------ sideBySide -----------
-        L.control.sideBySide(layer_20191104, layer_20190915).addTo(map);
+            compareLayers(url_tile_20191104, url_tile_20190915);
+        }
 
+        function compareLayers(url1, url2) {
+            var layer1 = L.tileLayer(url1 + '/{z}/{x}/{y}.png', { tms: true, opacity: 1, minZoom: 0, maxZoom: 22, minNativeZoom: 10, maxNativeZoom: 14 }).addTo(map);
+            var layer2 = L.tileLayer(url2 + '/{z}/{x}/{y}.png', { tms: true, opacity: 1, minZoom: 0, maxZoom: 22, minNativeZoom: 10, maxNativeZoom: 14 }).addTo(map);
 
+            // ------ sideBySide -----------
+            L.control.sideBySide(layer1, layer2).addTo(map);
+        }
     </script>
 
 </body>

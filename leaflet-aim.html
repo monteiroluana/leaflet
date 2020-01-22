@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet Aim</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+
+    <!-- Fonts Google -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        html,
+        body,
+        #leaflet {
+            height: 50vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="leaflet"></div>
+
+    <p>
+        <center><span id="coords">Aqui</span></center>
+    </p>
+    <!--Leaflet Script -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
+    <script>
+        'use strict'
+
+        var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ', maxZoom: 16 });
+        var normal = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', { attribution: 'Luana Monteiro', maxZoom: 18, id: 'mapbox.streets', accessToken: 'pk.eyJ1IjoidGhhbGVzZ2JyYW5kYW8iLCJhIjoiY2loM2llamx0MHl6Znd5bTB4b3BpZHJyZiJ9.Auxd4uKeTzg3AhyZCFeC7g' });
+
+        var map = new L.Map('leaflet', {
+            center: [0, 0],
+            zoom: 5,
+            cursor: true,
+            layers: [
+                Esri_WorldGrayCanvas
+            ]
+        });
+
+
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize: [38, 38],
+            }
+        });
+
+        var AimIcon = new LeafIcon({ iconUrl: 'http://cdn.onlinewebfonts.com/svg/img_463767.png' });
+
+        var layerGroup = L.layerGroup().addTo(map);
+
+        var coords = map.getCenter();
+
+        L.marker([coords.lat, coords.lng], { icon: AimIcon }).addTo(layerGroup);
+
+        document.getElementById('coords').innerHTML = coords;
+
+        // Move map
+        function onMove() {
+            // console.log(map.getCenter());
+
+            coords = map.getCenter();
+            // remove all the markers in one go
+            layerGroup.clearLayers();
+            // create markers
+            L.marker([coords.lat, coords.lng], { icon: AimIcon }).addTo(layerGroup);
+
+            document.getElementById('coords').innerHTML = coords;
+        }
+
+        map.on('move', onMove);
+
+    </script>
+</body>
+
+</html>

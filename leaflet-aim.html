@@ -54,6 +54,7 @@
         });
 
 
+        // ------ Custom Icon --------
         var LeafIcon = L.Icon.extend({
             options: {
                 iconSize: [38, 38],
@@ -62,6 +63,8 @@
 
         var AimIcon = new LeafIcon({ iconUrl: 'http://cdn.onlinewebfonts.com/svg/img_463767.png' });
 
+
+        // ------ Marker --------
         var layerGroup = L.layerGroup().addTo(map);
 
         var coords = map.getCenter();
@@ -70,10 +73,9 @@
 
         document.getElementById('coords').innerHTML = coords;
 
-        // Move map
-        function onMove() {
-            // console.log(map.getCenter());
 
+        // ------ Move map --------
+        function onMove() {
             coords = map.getCenter();
             // remove all the markers in one go
             layerGroup.clearLayers();
